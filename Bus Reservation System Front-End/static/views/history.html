@@ -1,0 +1,30 @@
+<div class="history-view">
+  <div class="right-list">
+    <table>
+      <tr class="head">
+        <th>PNR</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Date</th>
+        <th>Seats</th>
+        <th>BusName</th>
+      </tr>
+      <tr class="bod" ng-click="bkctrl.open=$index" ng-repeat-start="item in bkctrl.list">
+        <td><span ng-bind="item.ticket.pnr"></span></td>
+        <td><span ng-bind="item.fromLocation"></span></td>
+        <td><span ng-bind="item.toLocation"></span></td>
+        <td><span ng-bind="item.ticket.depDate"></span></td>
+        <td><span ng-bind="item.seatnums"></span></td>
+        <td><span ng-bind="item.busName"></span></td>
+      </tr>
+      <tr ng-repeat-end class="drop_row" ng-show="$index==bkctrl.open">
+        <td><span ng-bind="item.busTypeName"></span></td>
+        <td>Dep:<br><span ng-bind="item.ticket.depTime"></span></td>
+        <td>Arr:<br><span ng-bind="item.arrTime"></span></td>
+        <td>BusNo:<br><span ng-bind="item.busNum"></span></td>
+        <td>Fare:<br><span ng-bind="item.ticket.fare"></span></td>
+        <td><button ng-click="bkctrl.cancel($index)" ng-show="item.cancan">Cancel</button></td>
+      </tr>
+    </table>
+  </div>
+</div>

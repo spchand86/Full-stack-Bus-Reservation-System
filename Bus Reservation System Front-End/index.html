@@ -1,0 +1,100 @@
+<!DOCTYPE  html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="static/styles/main.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+  <script type="text/javascript" src="static/scripts/app.js"></script>
+  <script type="text/javascript" src="static/scripts/services.js"></script>
+  <script type="text/javascript" src="static/scripts/controllers/header.js"></script>
+  <script type="text/javascript" src="static/scripts/controllers/history.js"></script>
+  <script type="text/javascript" src="static/scripts/controllers/login.js"></script>
+  <script type="text/javascript" src="static/scripts/controllers/search.js"></script>
+  <script type="text/javascript" src="static/scripts/controllers/bus.js"></script>
+  <script type="text/javascript" src="static/scripts/controllers/bustype.js"></script>
+  <script type="text/javascript" src="static/scripts/controllers/route.js"></script>
+  <script type="text/javascript" src="static/scripts/controllers/schedule.js"></script>
+  <title>Bus Reservation System</title>
+</head>
+
+<body ng-app="MainApp">
+
+
+
+
+  <div class="header" ng-controller="HeaderController as hdctrl">
+    <h2>
+      YellowBus
+    </h2>
+    <div style="float:right">Hello <span ng-bind="hdctrl.userservice.getuser().name"></span>
+      <button ng-click="hdctrl.userservice.turnonoverlay()" ng-hide="hdctrl.userservice.getuserstatus()">Login</button>
+      <button ng-click="hdctrl.userservice.logout()" ng-show="hdctrl.userservice.getuserstatus()">Logout</button>
+    </div>
+    <div>
+    <table>
+      <tr>
+        <td><button ng-click="hdctrl.book()">Book Ticket</button></td>
+        <td><button ng-click="hdctrl.cancel()">Cancel Ticket</button></td>
+        <td><button ng-click="hdctrl.history()">Booking History</button></td>
+      </tr>
+      </table>
+      <table ng-if="hdctrl.isadmin()">
+      <tr>
+        <td><button ng-click="hdctrl.route()">Routes</button></td>
+        <td><button ng-click="hdctrl.bus()">Buses</button></td>
+        <td><button ng-click="hdctrl.schedule()">Schedule</button></td>
+        <td><button ng-click="hdctrl.bustype()">Bus Types</button></td>
+      </tr>
+      </table>
+  </div>
+
+  <div ng-controller="LoginController as lgctrl">
+    <div class="login_overlay" ng-if="lgctrl.userservice.overlaystatus">
+      <button ng-click="lgctrl.userservice.turnoffoverlay()">Close</button>
+      <div class="login_box">
+        <div class="tab_choices">
+          <button ng-click="lgctrl.open('login')">Login</button>
+          <button ng-click="lgctrl.open('signup')">Signup</button>
+        </div>
+        <div class="login-signup" ng-switch on="lgctrl.tab">
+          <div ng-switch-when="login">
+            <form ng-submit="lgctrl.login()">
+              <table>
+                <tr>
+                  <td>Username:</td>
+                  <td><input type="text" ng-model="lgctrl.user.userName"></td>
+                </tr>
+                <tr>
+                  <td>Password:</td>
+                  <td><input type="password" ng-model="lgctrl.user.password"></td>
+                </tr>
+              </table>
+              <input type="submit" value="Login">
+            </form>
+          </div>
+          <div ng-switch-when="signup">
+            <form ng-submit="lgctrl.signup()">
+              <table>
+                <tr>
+                  <td>Name:</td>
+                  <td><input type="text" ng-model="lgctrl.user.name"></td>
+                </tr>
+                <tr>
+                  <td>Username:</td>
+                  <td><input type="text" ng-model="lgctrl.user.userName"></td>
+                </tr>
+                <tr>
+                  <td>Password:</td>
+                  <td><input type="password" ng-model="lgctrl.user.password"></td>
+                </tr>
+              </table>
+              <input type="submit" value="Signup">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-view></div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<div class="search-view">
+  <h2>Buses</h2>
+  <div class="left-bar">
+    <h3>Add Bus</h3>
+    <form ng-submit="busctrl.add()">
+      <table>
+        <tr>
+          <td>Bus Name:</td>
+          <td><input type="text" ng-model="busctrl.bus.busName"></input></td>
+        </tr>
+        <tr>
+          <td>Bus No:</td>
+          <td><input type="text" ng-model="busctrl.bus.busNum"></td>
+        </tr>
+        <tr>
+          <td>Bus-Type:</td>
+          <td><select ng-model="busctrl.bustype" ng-options="ch.busTypeName for ch in busctrl.bustypelist"></select></td>
+        </tr>
+        <tr>
+          <td>Total Seats:</td>
+          <td><input type="number" ng-model="busctrl.bus.totalSeats" min="5"></td>
+        </tr>
+      </table>
+      <input type="submit" value="Add Bus">
+    </form>
+  </div>
+  <div class="right_list">
+    <table>
+      <tr class="head">
+        <th>Bus Name</th>
+        <th>Bus No</th>
+        <th>Bus-Type</th>
+        <th>LocationA</th>
+        <th>LocationB</th>
+        <th>Seats</th>
+        <th>Remove</th>
+      </tr>
+      <tr class="bod" ng-repeat="item in busctrl.list">
+        <td><span ng-bind="item.bus.busName"></span></td>
+        <td><span ng-bind="item.bus.busNum"></span></td>
+        <td><span ng-bind="item.busTypeName"></span></td>
+        <td><span ng-bind="item.fromLocation"></span></td>
+        <td><span ng-bind="item.toLocation"></span></td>
+        <td><span ng-bind="item.bus.totalSeats"></span></td>
+        <td><button ng-click="busctrl.remove($index)">Remove</button></td>
+      </tr>
+    </table>
+  </div>
+</div>

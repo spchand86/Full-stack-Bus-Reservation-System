@@ -1,0 +1,57 @@
+<div class="schedule">
+  <h2>Schedule</h2>
+  <div>
+    <select ng-model="shctrl.bussel" ng-options="ch.dispname for ch in shctrl.buslist" ng-change="shctrl.trigger()"></select>
+    <input type="radio" ng-model="shctrl.action" ng-value="false" ng-click="shctrl.view()">View
+    <input type="radio" ng-model="shctrl.action" ng-value="true" ng-click="shctrl.assign()">Assign
+  </div>
+  <div ng-show="shctrl.bussel">
+    Duration:<span ng-bind="shctrl.schedule.duration"></span>
+    Fare:<span ng-bind="shctrl.schedule.fare"></span>
+    Route:<span ng-bind="shctrl.schedule.route.fromLocation"></span>-<span ng-bind="shctrl.schedule.route.toLocation"></span>
+  </div>
+  <table>
+    <tr>
+      <th ng-repeat="day in shctrl.days"><span ng-bind="day"></span></th>
+    </tr>
+    <tr>
+      <td ng-repeat="item in shctrl.schedule.depTimings">
+        <table>
+          <tr ng-repeat="time in item">
+            <td><span ng-bind="time"></span></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <div ng-show="shctrl.action">
+    <form ng-submit="shctrl.addtime()">
+      <table>
+        <tr>
+          <td>From:</td>
+          <td><select ng-model="shctrl.query.from" ng-options="ch for ch in shctrl.fromlist" ng-change="shctrl.changetolist()"></select></td>
+        </tr>
+        <tr>
+          <td>To:</td>
+          <td><select ng-model="shctrl.query.to" ng-options="ch for ch in shctrl.tolist" ng-change="shctrl.calculate()"></select></td>
+        </tr>
+        <tr>
+          <td>Start Time:</td>
+          <td><input type="time" ng-model="shctrl.query.depTime" ng-change="shctrl.updatearrtime()"></td>
+        </tr>
+        <tr>
+          <td>Arrival Time:</td>
+          <td><span ng-bind=shctrl.query.arrTime></td>
+        </tr>
+        <tr>
+          <td>Day:</td>
+          <td><select ng-model="shctrl.query.day" ng-options="ch for ch in shctrl.days"></select></td>
+        </tr>
+        <tr>
+          <td colspan="2"><input type="submit" value="Add Time"></td>
+        </tr>
+      </table>
+    </form>
+    <button ng-click="shctrl.add()">Save</button>
+  </div>
+</div>

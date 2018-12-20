@@ -1,0 +1,57 @@
+<div class="search-view">
+  <div class="left-bar">
+    <h3>Search For Buses</h3>
+    <form ng-submit="srctrl.search()">
+      <table>
+        <tr>
+          <td>From:</td>
+          <td><select ng-model="srctrl.from" ng-options="ch for ch in srctrl.fromlist" ng-change="srctrl.changetolist()"></select></td>
+        </tr>
+        <tr>
+          <td>To:</td>
+          <td><select ng-model="srctrl.to" ng-options="ch for ch in srctrl.tolist"></select></td>
+        </tr>
+        <tr>
+          <td>Date:</td>
+          <td><input type="date" ng-model="srctrl.date" ng-min="srctrl.mindate" ng-max="srctrl.maxdate"></td>
+        </tr>
+        <tr>
+          <td>BusType:</td>
+          <td><select ng-model="srctrl.bustype" ng-options="ch.busTypeName for ch in srctrl.bustypelist"></select></td>
+        </tr>
+        <tr>
+          <td>No. of Seats:</td>
+          <td><input type="number" ng-model="srctrl.numseats" min="1" max="5"></td>
+        </tr>
+      </table>
+      <input type="submit" value="Search">
+    </form>
+  </div>
+  <div class="right_list" ng-if="srctrl.showright">
+    <table>
+      <tr class="head">
+        <th><span ng-bind="srctrl.numres"></span> Buses found</th>
+        <th>Dep. Time</th>
+        <th>Duration</th>
+        <th>Arr. Time</th>
+        <th>Fare</th>
+        <th>Seats</th>
+      </tr>
+      <tr class="bod" ng-repeat-start="item in srctrl.list">
+        <td>
+          <span ng-bind="item.bus.busName"></span><br>
+          <span ng-bind="item.bus.busTypeName"></span><br>
+          <span ng-bind="item.bus.busNum"></span><br>
+        </td>
+        <td><span ng-bind="item.depTime"></span></td>
+        <td><span ng-bind="item.duration"></span></td>
+        <td><span ng-bind="item.arrTime"></span></td>
+        <td><span ng-bind="item.fare"></span></td>
+        <td><span ng-bind="item.remainingSeats"></span></td>
+      </tr>
+      <tr ng-repeat-end class="drop_row">
+        <td colspan="6"><button ng-click="srctrl.book($index)">Book</button></td>
+      </tr>
+    </table>
+  </div>
+</div>
